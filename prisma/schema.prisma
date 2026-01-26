@@ -3,9 +3,15 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "sqlite"
+}
+
+model RocketTeamMember {
+  id String @id
+  name String
+  function String
 }
