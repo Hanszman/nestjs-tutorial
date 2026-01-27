@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Body } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PrismaService } from './database/prisma.service';
+import { randomUUID } from 'node:crypto';
 
 @Controller()
 export class AppController {
@@ -15,12 +16,15 @@ export class AppController {
   }
 
   @Get('hello')
-  async getHelloWorld() {
+  async getHelloWorld(@Body() body: any) {
+    console.log(body);
+    const { name, function: memberFunction } = body;
+
     const member = await this.prisma.rocketTeamMember.create({
       data: {
-        id: 'capitao',
-        name: 'Guilherme Capitão',
-        function: 'Alcançar coisas no alto',
+        id: randomUUID(),
+        name,
+        function: memberFunction,
       },
     });
     return { member };
