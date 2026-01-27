@@ -103,4 +103,4 @@ Following NestJS tutorial by this video:
 
 https://www.youtube.com/watch?v=TRa55WbWnvQ
 
-29:39
+32:53
