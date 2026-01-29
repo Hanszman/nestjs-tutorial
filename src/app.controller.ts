@@ -1,13 +1,13 @@
-import { Controller, Get, Body } from '@nestjs/common';
+import { Controller, Get, Body, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { PrismaService } from './database/prisma.service';
-import { randomUUID } from 'node:crypto';
+import { RocketMembersRepository } from './repositories/rocket-members-repository';
+import { CreateTeamMemberBody } from './dtos/create-team-member.body';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private prisma: PrismaService,
+    private rocketMembersRepository: RocketMembersRepository,
   ) {}
 
   @Get()
@@ -15,18 +15,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('hello')
-  async getHelloWorld(@Body() body: any) {
+  @Post('hello')
+  async postHelloWorld(@Body() body: CreateTeamMemberBody) {
     console.log(body);
     const { name, function: memberFunction } = body;
 
-    const member = await this.prisma.rocketTeamMember.create({
-      data: {
-        id: randomUUID(),
-        name,
-        function: memberFunction,
-      },
-    });
-    return { member };
+    await this.rocketMembersRepository.create(name, memberFunction);
   }
 }
