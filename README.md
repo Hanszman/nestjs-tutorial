@@ -102,5 +102,3 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 Following NestJS tutorial by this video:
 
 https://www.youtube.com/watch?v=TRa55WbWnvQ
-
-35:23
